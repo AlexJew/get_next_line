@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajewell <ajewell@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/24 11:18:10 by ajewell           #+#    #+#             */
-/*   Updated: 2025/11/24 17:07:30 by ajewell          ###   ########.fr       */
+/*   Created: 2025/11/24 11:49:57 by ajewell           #+#    #+#             */
+/*   Updated: 2025/11/24 11:57:36 by ajewell          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "get_next_line.h"
+#include <stdio.h>
 
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdlib.h>
+int	main(void)
+{
+	int		fd;
+	char	line;
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
-
-# endif
-
-char	*get_next_line(int fd);
-char	*append_to_stash(char *stash, char *buffer);
-int		ft_strlen(char *str);
-char	*extract_next_line(char *stash);
-
-#endif
+	fd = open("example.txt", O_RDONLY);
+	line = get_next_line(fd);
+	printf("%s", line);
+	free(line);
+	while(line)
+	{
+		line = get_next_line(fd);
+		printf("%s", line);
+		free(line);
+	}
+	return (0);
+}
